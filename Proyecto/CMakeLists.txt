@@ -31,3 +31,23 @@ target_include_directories(Proyecto PUBLIC libspatialindex/include)
 
 # Para que encuentre el código de las funciones (el .lib/.a)
 target_link_libraries(Proyecto PRIVATE spatialindex)
+
+# ── Tests manuales (oracle checks) de cada estructura de índice ──────────
+# Cada uno es su propio ejecutable porque cada prueba define su propio main().
+add_executable(test_bptree
+        pruebas/pruebaBPTree.cpp
+        Index/BPTree.cpp
+        Parser/disk_counter.cpp
+)
+
+add_executable(test_ehashing
+        pruebas/pruebaEHashing.cpp
+        Parser/disk_counter.cpp
+)
+
+add_executable(test_rtree
+        pruebas/pruebaRTree.cpp
+        Parser/disk_counter.cpp
+)
+target_include_directories(test_rtree PUBLIC libspatialindex/include)
+target_link_libraries(test_rtree PRIVATE spatialindex)

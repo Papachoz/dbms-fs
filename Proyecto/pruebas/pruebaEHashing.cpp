@@ -5,7 +5,7 @@
 #include "../Index/ExtendibleHashing.h"
 
 using namespace std;
-/*
+
 int main() {
     // limpiar archivo anterior para prueba fresca
     remove("ehash_test.bin");
@@ -25,7 +25,7 @@ int main() {
     shuffle(keys.begin(), keys.end(), rng);
 
     for (int i = 0; i < (int)keys.size(); i++)
-        eh.add_hash(keys[i]);
+        eh.insert_hash(keys[i], RID_h{1, i});
 
     cout << "Insertadas " << keys.size() << " keys\n";
 
@@ -34,7 +34,7 @@ int main() {
 
     int bad = 0;
     for (int k : keys) {
-        vector<RID> res = eh.search_hash(k);
+        vector<RID_h> res = eh.search_hash(k);
         if (res.empty()) {
             cout << "FAIL: key " << k << " no encontrada\n";
             bad++;
@@ -45,17 +45,17 @@ int main() {
 
     // ── 3. SEARCH key inexistente ─────────────────────────────────
     cout << "\n===== SEARCH INEXISTENTE =====\n";
-    vector<RID> r = eh.search_hash(9999);
+    vector<RID_h> r = eh.search_hash(9999);
     cout << "Buscar 9999 (no existe): "
          << (r.empty() ? "OK — vacío" : "FAIL — encontró algo") << "\n";
 
     // ── 4. DELETE ────────────────────────────────────────────────
     cout << "\n===== DELETE =====\n";
 
-    // borrar la mitad de las keys
+    // borrar la mitad de las keys (usamos el RID exacto con el que se insertó)
     int deleted = 0;
     for (int i = 0; i < (int)keys.size(); i += 2) {
-        eh.delete_hash(keys[i]);
+        eh.delete_hash(keys[i], RID_h{1, i});
         deleted++;
     }
     cout << "Borradas " << deleted << " keys\n";
@@ -63,7 +63,7 @@ int main() {
     // verificar que las borradas ya no están
     int falsepositives = 0;
     for (int i = 0; i < (int)keys.size(); i += 2) {
-        vector<RID> res = eh.search_hash(keys[i]);
+        vector<RID_h> res = eh.search_hash(keys[i]);
         if (!res.empty()) {
             cout << "FAIL: key " << keys[i] << " sigue apareciendo tras delete\n";
             falsepositives++;
@@ -74,7 +74,7 @@ int main() {
     // verificar que las NO borradas siguen estando
     int missing = 0;
     for (int i = 1; i < (int)keys.size(); i += 2) {
-        vector<RID> res = eh.search_hash(keys[i]);
+        vector<RID_h> res = eh.search_hash(keys[i]);
         if (res.empty()) {
             cout << "FAIL: key " << keys[i] << " desapareció sin ser borrada\n";
             missing++;
@@ -92,7 +92,7 @@ int main() {
 
         int missing2 = 0;
         for (int i = 1; i < (int)keys.size(); i += 2) {
-            vector<RID> res = eh2.search_hash(keys[i]);
+            vector<RID_h> res = eh2.search_hash(keys[i]);
             if (res.empty()) {
                 missing2++;
             }
@@ -111,4 +111,3 @@ int main() {
 
     return 0;
 }
-*/

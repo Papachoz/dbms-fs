@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   backend:
     build:
@@ -7,6 +5,8 @@ services:
       dockerfile: Proyecto/Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - PYTHONUNBUFFERED=1
     volumes:
       - ./Proyecto/archivos:/app/archivos
       - ./Proyecto/outputs:/app/outputs

@@ -1,4 +1,3 @@
-/*
 #include <iostream>
 #include <vector>
 #include <cstdio>
@@ -7,9 +6,9 @@
 #include <iomanip>
 #include <spatialindex/SpatialIndex.h>
 
-#include "../RangeSearchVisitor.h"
-#include "../KNNVisitor.h"
-#include "../MiPagedDiskStorageManager.h"
+#include "../rtree/RangeSearchVisitor.h"
+#include "../rtree/KNNVisitor.h"
+#include "../rtree/MiPagedDiskStorageManager.h"
 
 struct PuntoRegistro {
     SpatialIndex::id_type id;
@@ -399,4 +398,4 @@ int main() {
     delete almacenamiento;
 
     return 0;
-}*/
+}
